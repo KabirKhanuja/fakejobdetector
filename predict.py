@@ -45,7 +45,6 @@ def predict_fraud(job_data):
 
     return f"Fraudulent (⚠️ {proba:.2f})" if prediction == 1 else f"Legit (✅ {proba:.2f})"
 
-# Example input (Modify for testing)
 sample_job = {
     "telecommuting": 0,
     "has_company_logo": 1,
