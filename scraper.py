@@ -10,8 +10,8 @@ from selenium.webdriver.common.by import By
 import re
 
 # API Keys
-SERPAPI_KEY = "0d6c0de3671fa3466c8897f2a720bcfe2f98ab913c89340a0f02f7037b32588e"
-SCRAPINGDOG_API_KEY = "67c08725951dde454419cf31"
+SERPAPI_KEY = "YOUR_API_KEY"
+SCRAPINGDOG_API_KEY = "YOUR_API_KEY"
 
 # Set up Selenium for Brave Browser
 options = Options()
