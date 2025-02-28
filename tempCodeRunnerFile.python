@@ -1,0 +1,29 @@
+import requests
+from difflib import SequenceMatcher
+
+SCRAPINGDOG_API_KEY = "your_scrapingdog_api_key"
+
+def search_linkedin():
+    """Check company legitimacy via ScrapingDog API."""
+    company_name = "Google"  # Hardcoded for now, will take user input later
+    query = f"https://www.linkedin.com/company/{company_name.replace(' ', '-').lower()}/"
+
+    scrapingdog_url = f"https://api.scrapingdog.com/scrape?api_key={SCRAPINGDOG_API_KEY}&url={query}"
+    headers = {"User-Agent": "Mozilla/5.0"}
+    
+    response = requests.get(scrapingdog_url, headers=headers)
+    
+    print(f"🔍 Searching for: {company_name} on LinkedIn...")
+
+    if response.status_code != 200:
+        print(f"❌ Scraping failed with status {response.status_code}: {response.text}")
+        return 0.0  
+
+    page_content = response.text.lower()
+    
+    if "linkedin" in page_content:
+        print(f"✅ Found company page: {query}")
+        return 1.0  
+    else:
+        print(f"❌ No match found for: {company_name}")
+        return 0.3  
