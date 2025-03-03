@@ -40,6 +40,6 @@ def scrape_internshala_job(job_url):
     return job_details
 
 if __name__ == "__main__":
-    job_url = "https://internshala.com/internship/detail/XXXXX"  # Replace with actual Internshala job link
+    job_url = "https://internshala.com/internship/detail/XXXXX" 
     data = scrape_internshala_job(job_url)
     print(data)
