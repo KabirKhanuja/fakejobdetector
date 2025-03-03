@@ -12,25 +12,18 @@ def scrape_internshala_job(job_url):
     soup = BeautifulSoup(response.text, "html.parser")
 
     try:
-        # Extract Job Title
         title = soup.find("h1", class_="profile").text.strip()
 
-        # Extract Company Name
         company = soup.find("div", class_="company_name").text.strip()
 
-        # Extract Location
         location = soup.find("span", class_="location_link").text.strip()
 
-        # Extract Job Description
         description = soup.find("div", class_="internship_details").text.strip()
 
-        # Extract Employment Type (Internship, Full-time, etc.)
         employment_type = soup.find("div", class_="other_detail_item").text.strip()
 
-        # Extract Job Duration
         duration = soup.find("div", class_="item_body").text.strip()
 
-        # Store extracted data in dictionary
         job_details = {
             "title": title,
             "company": company,
@@ -46,7 +39,6 @@ def scrape_internshala_job(job_url):
 
     return job_details
 
-# Example Usage:
 if __name__ == "__main__":
     job_url = "https://internshala.com/internship/detail/XXXXX"  # Replace with actual Internshala job link
     data = scrape_internshala_job(job_url)
