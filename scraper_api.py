@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from scraper import scrape_job_post  # Importing scraper function
+from scraper import scrape_job_post 
 import re
 
 app = Flask(__name__)
@@ -7,13 +7,13 @@ app = Flask(__name__)
 def extract_job_id(profile_link):
     match = re.search(r'currentJobId=(\d+)', profile_link)
     if match:
-        return match.group(1)  # Extracts the job ID
+        return match.group(1) 
     return None
 
 @app.route('/scrape', methods=['POST'])
 def scrape():
-    data = request.json  # Get JSON input
-    profile_link = data.get("profile_link")  # Get job post link
+    data = request.json  
+    profile_link = data.get("profile_link")  
     
     if not profile_link:
         return jsonify({"error": "Profile link is required"}), 400
@@ -22,11 +22,10 @@ def scrape():
     if not job_id:
         return jsonify({"error": "Invalid LinkedIn job link format"}), 400
     
-    # Call scraper function
     job_data = scrape_job_post(profile_link)
     
     if job_data:
-        return jsonify(job_data)  # Return scraped job details
+        return jsonify(job_data)  
     else:
         return jsonify({"error": "Failed to fetch job details"}), 500
 
