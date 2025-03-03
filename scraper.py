@@ -9,11 +9,9 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 import re
 
-# API Keys
 SERPAPI_KEY = "YOUR_API_KEY"
 SCRAPINGDOG_API_KEY = "YOUR_API_KEY"
 
-# Set up Selenium for Brave Browser
 options = Options()
 options.binary_location = "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser"
 options.add_argument("--headless")
