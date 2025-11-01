@@ -1,0 +1,92 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobDetect</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .button-group button {
+            white-space: nowrap;
+        }
+        textarea {
+            text-align: left;
+            vertical-align: top;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <nav class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-diamond text-xl text-black"></i>
+                        <span class="ml-2 text-xl font-semibold text-black">JobDetect</span>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-8">
+                    <a href="#" class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                    <a href="#" class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium">Features</a>
+                    <a href="#" class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium">Pricing</a>
+                    <a href="#" class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium">Help</a>
+                    <a href="#" class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium">Sign in</a>
+                    <a href="#" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded-md text-sm font-medium">Get started</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main class="max-w-2xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <h1 class="text-3xl font-semibold text-center text-gray-900">Detect fake job postings</h1>
+        <p class="mt-4 text-center text-gray-600">Paste the job description, company name, employer name, payment status, time period, and post link. We'll help you to detect if it's a fake job.</p>
+        <form class="mt-8 space-y-6">
+            <div>
+                <label for="description" class="block text-sm font-medium text-gray-700">Description*</label>
+                <textarea id="description" name="description" rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2" placeholder="Job description..."></textarea>
+            </div>
+            <div>
+                <label for="company-name" class="block text-sm font-medium text-gray-700">Company Name</label>
+                <input id="company-name" name="company-name" type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2" placeholder="Company name">
+            </div>
+            <div>
+                <label for="post-link" class="block text-sm font-medium text-gray-700">Post Link</label>
+                <input id="post-link" name="post-link" type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2" placeholder="Post link">
+            </div>
+            <div class="flex space-x-4">
+                <button type="button" class="px-4 py-2 rounded-md border border-gray-300 text-gray-700 bg-white hover:bg-gray-50">Paid</button>
+                <button type="button" class="px-4 py-2 rounded-md border border-gray-300 text-gray-700 bg-white hover:bg-gray-50">Unpaid</button>
+            </div>
+            <div class="mt-4">
+                <div class="button-group">
+                    <button type="button" class="px-4 py-2 rounded-md border border-gray-300 text-gray-700 bg-white hover:bg-gray-50">Short-term (1-3 months)</button>
+                    <button type="button" class="px-4 py-2 rounded-md border border-gray-300 text-gray-700 bg-white hover:bg-gray-50">Mid-term (3-6 months)</button>
+                    <button type="button" class="px-4 py-2 rounded-md border border-gray-300 text-gray-700 bg-white hover:bg-gray-50">Long-term</button>
+                </div>
+            </div>
+            <div class="mt-4">
+                <div class="button-group">
+                    <button type="button" class="px-4 py-2 rounded-md border border-gray-300 text-gray-700 bg-white hover:bg-gray-50">Full-time</button>
+                    <button type="button" class="px-4 py-2 rounded-md border border-gray-300 text-gray-700 bg-white hover:bg-gray-50">Part-time</button>
+                    <button type="button" class="px-4 py-2 rounded-md border border-gray-300 text-gray-700 bg-white hover:bg-gray-50">Freelance</button>
+                    <button type="button" class="px-4 py-2 rounded-md border border-gray-300 text-gray-700 bg-white hover:bg-gray-50">Internship</button>
+                </div>
+            </div>
+            <div class="mt-6">
+                <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-500 hover:bg-blue-600">Detect</button>
+            </div>
+        </form>
+    </main>
+
+    <script src="index.js"></script>
+</body>
+</html>

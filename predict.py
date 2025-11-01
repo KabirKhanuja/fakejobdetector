@@ -1,8 +1,10 @@
 import pandas as pd
 import pickle
 import numpy as np
+import re
 from sklearn.preprocessing import LabelEncoder
 from scipy.sparse import hstack, csr_matrix  # For sparse matrix operations
+from collections import Counter
 
 # ========== LOAD TRAINED COMPONENTS ==========
 with open("random_forest_model.pkl", "rb") as file:
@@ -35,6 +37,27 @@ scam_keywords = [
 def count_scam_keywords(text):
     return sum(word in text.lower() for word in scam_keywords)
 
+# Function to detect gibberish text
+def is_gibberish(text):
+    words = text.split()
+    if len(words) < 3:
+        return True  # Too short to be legit
+    
+    letter_counts = Counter(text.lower())
+    unique_chars = len(letter_counts)
+    total_chars = sum(letter_counts.values())
+    
+    # If too few unique characters, it's likely gibberish
+    if unique_chars / total_chars < 0.2:
+        return True
+    
+    # If no common words exist, it's gibberish
+    common_words = {"the", "and", "to", "for", "with", "in", "job", "position", "role"}
+    if not any(word in common_words for word in words):
+        return True
+    
+    return False
+
 # ========== FEATURE CONFIGURATION ==========
 text_features = ["title", "company_name", "description", "location"]
 categorical_features = [
@@ -48,15 +71,6 @@ categorical_features = [
 THRESHOLD = 0.08  
 
 def predict_fraud(job_data):
-    """
-    Predicts whether a job posting is fraudulent based on given job details.
-    
-    Args:
-        job_data (dict): Job posting details.
-    
-    Returns:
-        str: Prediction result with fraud probability.
-    """
     df = pd.DataFrame([job_data])
 
     # ========== HANDLE TEXT FEATURES (TF-IDF) ==========
@@ -98,32 +112,28 @@ def predict_fraud(job_data):
 
     return f"Fraudulent (⚠️ {proba:.2f})" if prediction == 1 else f"Legit (✅ {proba:.2f})"
 
-# ========== TEST CASE ==========
-sample_job = {
-    "title": "Marketing Manager",
-    "company_name": "Coca-Cola",
-    "description": "We are looking for a skilled Marketing Manager to oversee campaigns and brand strategies at Coca-Cola. The ideal candidate has experience in digital marketing, branding, and team leadership.",
-    "location": "Atlanta, GA",
-    "telecommuting": 0,
-    "has_company_logo": 1,
-    "has_questions": 1,
-    "employment_type": "Full-time",
-    "required_experience": "Manager",
-    "required_education": "Bachelor's Degree in Marketing",
-    "industry": "Beverage",
-    "function": "Marketing",
-    "paid": 1,
-    "job_type": "Permanent",
-    "duration": "N/A",
-    "salary_range": "$80,000-$100,000 per year",
-    "department": "Marketing",
-    "legitimacy_score": 1.0  
-}
-
-
-
-
-
-
-result = predict_fraud(sample_job)
-print(f"Job Posting is: {result}")
+def predict_fraud_from_description(description, company_name="Unknown"):
+    if is_gibberish(description):
+        return {"fraudulent": True, "probability": 0.99, "reason": "Detected gibberish content"}
+    
+    job_data = {
+        "title": "",
+        "company_name": company_name,  
+        "description": description,
+        "location": "",
+        "telecommuting": "Unknown",
+        "has_company_logo": "Unknown",
+        "has_questions": "Unknown",
+        "employment_type": "Unknown",
+        "required_experience": "Unknown",
+        "required_education": "Unknown",
+        "industry": "Unknown",
+        "function": "Unknown",
+        "paid": "Unknown",
+        "job_type": "Unknown",
+        "duration": "Unknown",
+        "salary_range": "Unknown",
+        "department": "Unknown",
+        "legitimacy_score": 0.5
+    }
+    return predict_fraud(job_data)
